@@ -73,6 +73,12 @@ export default function Home() {
   // Sosyal medya ve proje bağlantıların
   const socialLinks = [
     {
+      name: 'TruePrompt',
+      url: 'https://trueprompt.duckdns.org',
+      icon: <Search size={18} />,
+      color: 'hover:border-blue-500/50 hover:text-blue-400',
+    },
+    {
       name: 'Olyster AI',
       url: 'https://www.olyster.dedyn.io',
       icon: <LoaderPinwheel size={18} />,
