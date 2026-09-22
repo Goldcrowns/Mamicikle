@@ -141,11 +141,11 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-[#090d16] text-white flex flex-col items-center p-4 font-mono relative overflow-hidden">
+    <main className="min-h-[100dvh] bg-[#090d16] text-white flex flex-col items-center px-3 py-3 sm:p-4 font-mono relative overflow-hidden">
       {/* Arka plan siber kare deseni */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-20 pointer-events-none" />
 
-      <div className="w-full max-w-md flex flex-col items-center gap-6 z-10 pt-4 pb-32">
+      <div className="w-full max-w-md flex flex-col items-center gap-5 sm:gap-6 z-10 pt-2 sm:pt-4 pb-32">
         {/* Tab Menüsü */}
         <div className="flex bg-[#0f172a]/80 border border-blue-900/50 rounded-lg p-1 w-full text-center">
           <button
@@ -168,8 +168,8 @@ export default function Home() {
 
         {/* Profil İkonu & İsim */}
         <div className="flex flex-col items-center gap-3">
-          <div className="w-28 h-28 border-2 border-blue-500/40 rounded-xl overflow-hidden bg-slate-900/90 shadow-lg shadow-blue-500/10 flex items-center justify-center text-blue-400">
-            <User size={56} />
+          <div className="w-20 h-20 sm:w-28 sm:h-28 border-2 border-blue-500/40 rounded-xl overflow-hidden bg-slate-900/90 shadow-lg shadow-blue-500/10 flex items-center justify-center text-blue-400">
+            <User className="w-10 h-10 sm:w-14 sm:h-14" />
           </div>
           <h1 className="text-xl tracking-widest text-slate-200">mami</h1>
         </div>
@@ -216,7 +216,11 @@ export default function Home() {
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.nativeEvent.isComposing && e.keyCode !== 229) {
+                      sendMessage();
+                    }
+                  }}
                   placeholder={loading ? 'Thinking...' : 'Ask me anything...'}
                   disabled={loading}
                   className="w-full bg-[#0f172a]/90 border border-slate-700 rounded-lg pl-10 pr-10 py-3 text-sm text-slate-200 focus:outline-none focus:border-blue-500 backdrop-blur-md placeholder:text-slate-500 shadow-xl"

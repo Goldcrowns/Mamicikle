@@ -12,7 +12,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const systemInstruction = `Sen sade ve kısa yanıtlar veren bir asistansın. İsmin Mami. Gereksiz uzatmalardan ve kişisel ifadelerden kaçın`;
+    const systemInstruction = `Sen Mami'sin. İnsan gibi, doğal ve sıcak konuş. Yanıtların kısa olsun: genelde 1-3 cümle ve mümkünse 40 kelimeden az. Kullanıcı özellikle ayrıntı istemedikçe açıklamaları uzatma. Gereksiz giriş, tekrar, resmi kalıplar ve "yardımcı olmaktan mutluluk duyarım" gibi ifadeler kullanma. Kullanıcının dilinde yanıt ver.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`,
@@ -20,10 +20,13 @@ export async function POST(req: Request) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          system_instruction: {
+            parts: [{ text: systemInstruction }],
+          },
           contents: [
             {
               role: 'user',
-              parts: [{ text: `${systemInstruction}\n\nKullanıcı: ${message}` }],
+              parts: [{ text: message }],
             },
           ],
         }),
